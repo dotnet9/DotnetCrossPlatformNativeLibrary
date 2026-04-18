@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>net10.0;net10.0-windows</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<WindowsSupportedOSPlatformVersion>6.1</WindowsSupportedOSPlatformVersion>
+		<!-- Win7 版本号 -->
+		<TargetPlatformMinVersion>6.1</TargetPlatformMinVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CodeWF.Log.Core" Version="11.3.14" />
+		<PackageReference Include="VC-LTL" Version="5.3.1" />
+		<PackageReference Include="YY-Thunks" Version="1.2.1-Beta.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TimeMeaningNative\TimeMeaningNative.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Lib\x64\TimeMeaning.dll" Condition="'$(Configuration)' == 'Debug'">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Lib\TimeMeaning.dll</Link>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Lib\x64\libTimeMeaning.so" Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Lib\libTimeMeaning.so</Link>
+		</None>
+		<None Update="Lib\x64\TimeMeaning.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Lib\TimeMeaning.dll</Link>
+		</None>
+		<None Update="Lib\x86\TimeMeaning.dll" Condition="'$(RuntimeIdentifier)' == 'win-x86'">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Lib\TimeMeaning.dll</Link>
+		</None>
+	</ItemGroup>
+
+</Project>

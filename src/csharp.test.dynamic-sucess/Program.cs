@@ -13,7 +13,7 @@ var platform = "Linux ARM64";
 var platform = "Unknown";
 #endif
 
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [{platform}] ===\n");
+Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [{platform}]，这是成功的 ===\n");
 
 try
 {

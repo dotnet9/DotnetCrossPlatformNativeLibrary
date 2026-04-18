@@ -6,9 +6,21 @@
     <File Path="src/cpp.native.dll/GetTimeMeaning.cpp" />
     <File Path="src/cpp.native.dll/GetTimeMeaning.h" />
   </Folder>
+  <Folder Name="/csharp.test.dynamic-sucess/">
+    <Project Path="src/csharp.test.dynamic-sucess/csharp.test.dynamic.csproj" />
+  </Folder>
+  <Folder Name="/csharp.test.static-fail/">
+    <Project Path="src/csharp.test.static-fail/csharp.test.static/csharp.test.static.csproj" />
+    <Project Path="src/csharp.test.static-fail/TimeMeaningNative/TimeMeaningNative.csproj" Id="104b5f96-4619-4c23-8eb1-ff52d6dab64c" />
+  </Folder>
+  <Folder Name="/csharp.test.static-sucess1/">
+    <Project Path="src/csharp.test.static-sucess1/csharp.test.static.csproj" />
+  </Folder>
+  <Folder Name="/csharp.test.static-sucess2/">
+    <Project Path="src/csharp.test.static-sucess2/csharp.test.static/csharp.test.static.csproj" />
+    <Project Path="src/csharp.test.static-sucess2/TimeMeaningNative/TimeMeaningNative.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
   </Folder>
-  <Project Path="src/csharp.test.dynamic/csharp.test.dynamic.csproj" />
-  <Project Path="src/csharp.test.static/csharp.test.static.csproj" />
 </Solution>
