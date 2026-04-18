@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/cpp.native.dll/">
+    <File Path="src/cpp.native.dll/build_linux.sh" />
+    <File Path="src/cpp.native.dll/build_win.bat" />
+    <File Path="src/cpp.native.dll/CMakeLists.txt" />
+    <File Path="src/cpp.native.dll/GetTimeMeaning.cpp" />
+    <File Path="src/cpp.native.dll/GetTimeMeaning.h" />
+  </Folder>
+  <Project Path="src/csharp.test.dynamic/csharp.test.dynamic.csproj" />
+  <Project Path="src/csharp.test.static/csharp.test.static.csproj" />
+</Solution>
