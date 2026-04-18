@@ -6,6 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 LIB_DIR="$PROJECT_ROOT/lib"
 SRC_DIR="$SCRIPT_DIR"
+BUILD_DIR="$SCRIPT_DIR/build_linux"
+RELEASE_DIR="$SCRIPT_DIR/linux_release"
 CXX="${CXX:-g++}"
 CXXFLAGS="-std=c++17 -O2 -Wall -Wextra -fvisibility=hidden"
 
@@ -21,16 +23,18 @@ if [ ! -f "GetTimeMeaning.cpp" ]; then
     exit 1
 fi
 
-mkdir -p "$LIB_DIR/x64"
+mkdir -p "$BUILD_DIR"
+mkdir -p "$RELEASE_DIR/x64"
 
 echo "[1/3] 清理旧构建文件..."
-rm -f "$LIB_DIR/x64/TimeMeaning.so"
+rm -f "$BUILD_DIR/TimeMeaning.o"
+rm -f "$RELEASE_DIR/x64/libTimeMeaning.so"
 
 echo "[2/3] 构建 x64 (64位) 动态库..."
-$CXX $CXXFLAGS -shared -fPIC -o "$LIB_DIR/x64/TimeMeaning.so" "$SRC_DIR/GetTimeMeaning.cpp"
+$CXX $CXXFLAGS -shared -fPIC -o "$RELEASE_DIR/x64/libTimeMeaning.so" "$SRC_DIR/GetTimeMeaning.cpp"
 
 echo "[3/3] 构建完成！"
 echo ""
 echo "输出文件:"
-echo "  x64: $LIB_DIR/x64/TimeMeaning.so"
+echo "  x64: $RELEASE_DIR/x64/libTimeMeaning.so"
 echo ""
