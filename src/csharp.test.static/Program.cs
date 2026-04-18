@@ -1,36 +1,35 @@
-using System;
-using System.Runtime.InteropServices;
+using CodeWF.Log.Core;
+using csharp.test.static_;
 
-namespace csharp.test.static_;
+#if WIN_X64
+var platform = "Windows X64";
+#elif WIN_X86
+var platform = "Windows X86";
+#elif LINUX_X64
+var platform = "Linux X64";
+#elif LINUX_ARM64
+var platform = "Linux ARM64";
+#else
+var platform = "Unknown";
+#endif
 
-internal static class NativeLibrary
+Logger.Info($"=== C# 静态调用 (DllImport) 测试 [{platform}] ===\n");
+
+try
 {
-    private const string DllName = "TimeMeaning.dll";
+    int[] testTimestamps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1, 100, 1000];
 
-    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.UTF8)]
-    private static extern IntPtr GetTimeMeaning(int timestampSecond);
-
-    public static string GetTimeMeaningString(int timestampSecond)
+    foreach (var ts in testTimestamps)
     {
-        IntPtr ptr = GetTimeMeaning(timestampSecond);
-        return Marshal.PtrToStringUTF8(ptr) ?? string.Empty;
+        var meaning = TimeMeaningNative.GetTimeMeaningString(ts);
+        Logger.Info($"时间戳 {ts,6} -> {meaning}");
     }
+
+    Logger.Info("\n测试完成！");
+}
+catch (Exception ex)
+{
+    Logger.Error($"错误: {ex.Message}");
 }
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("=== C# 静态调用 (DllImport) 测试 ===\n");
-
-        int[] testTimestamps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -1, 100, 1000];
-
-        foreach (int ts in testTimestamps)
-        {
-            string meaning = NativeLibrary.GetTimeMeaningString(ts);
-            Console.WriteLine($"时间戳 {ts,6} -> {meaning}");
-        }
-
-        Console.WriteLine("\n测试完成！");
-    }
-}
+Console.ReadKey();

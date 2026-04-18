@@ -1,20 +1,19 @@
 using CodeWF.Log.Core;
 using csharp.test.dynamic;
 
-const string platform =
-    "Unknown";
-
 #if WIN_X64
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [Windows X64] ===\n");
+var platform = "Windows X64";
 #elif WIN_X86
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [Windows X86] ===\n");
+var platform = "Windows X86";
 #elif LINUX_X64
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [Linux X64] ===\n");
+var platform = "Linux X64";
 #elif LINUX_ARM64
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [Linux ARM64] ===\n");
+var platform = "Linux ARM64";
 #else
-Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [{platform}] ===\n");
+var platform = "Unknown";
 #endif
+
+Logger.Info($"=== C# 动态调用 (NativeLibrary) 测试 [{platform}] ===\n");
 
 try
 {
