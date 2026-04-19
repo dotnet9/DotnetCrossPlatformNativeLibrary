@@ -44,7 +44,7 @@ static const char* TIME_MEANINGS[] = {
 
 第三方库通常会提供针对不同平台的版本，目录结构如下：
 
-![](timemeaning-structure.svg)
+![](https://img1.dotnet9.com/2026/04/timemeaning-structure.svg)
 
 ```
 Lib/
@@ -107,7 +107,7 @@ var platform = "Unknown";
 1. **动态加载**：使用 `NativeLibrary` API 运行时手动加载
 2. **静态加载**：使用 `DllImport` 特性声明（做了3种情况测试）
 
-![](four-solutions-architecture.svg)
+![](https://img1.dotnet9.com/2026/04/four-solutions-architecture.svg)
 
 ### VC-LTL 和 YY-Thunks（所有示例通用）
 
@@ -387,7 +387,7 @@ public static class TimeMeaningApi
 
 #### 工作原理
 
-![](solution-three-workflow.svg)
+![](https://img1.dotnet9.com/2026/04/solution-three-workflow.svg)
 
 - **Windows**：`DllImport("Lib/TimeMeaning")` 自动查找 `Lib/TimeMeaning.dll`
 - **Linux**：`DllImport("Lib/TimeMeaning")` 会查找 `Lib/TimeMeaning` 或 `Lib/TimeMeaning.so`，**不会**查找 `Lib/libTimeMeaning.so`
@@ -395,7 +395,7 @@ public static class TimeMeaningApi
 
 ## 5. 方案对比总结
 
-![](solution-comparison.svg)
+![](https://img1.dotnet9.com/2026/04/solution-comparison.svg)
 
 | 类别     | 方案                   | 做法                           | 结果                       | 适用场景                                 |
 | -------- | ---------------------- | ------------------------------ | -------------------------- | ---------------------------------------- |
