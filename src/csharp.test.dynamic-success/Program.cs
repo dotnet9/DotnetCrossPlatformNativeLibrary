@@ -1,13 +1,13 @@
 using CodeWF.Log.Core;
 using csharp.test.dynamic;
 
-#if WIN_X64
+#if PLATFORM_WIN_X64
 var platform = "Windows X64";
-#elif WIN_X86
+#elif PLATFORM_WIN_X86
 var platform = "Windows X86";
-#elif LINUX_X64
+#elif PLATFORM_LINUX_X64
 var platform = "Linux X64";
-#elif LINUX_ARM64
+#elif PLATFORM_LINUX_ARM64
 var platform = "Linux ARM64";
 #else
 var platform = "Unknown";

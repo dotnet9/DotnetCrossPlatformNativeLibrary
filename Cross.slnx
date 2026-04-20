@@ -9,10 +9,6 @@
   <Folder Name="/csharp.test.dynamic-success/">
     <Project Path="src/csharp.test.dynamic-success/csharp.test.dynamic.csproj" />
   </Folder>
-  <Folder Name="/csharp.test.static-fail/">
-    <Project Path="src/csharp.test.static-fail/csharp.test.static/csharp.test.static.csproj" />
-    <Project Path="src/csharp.test.static-fail/TimeMeaningNative/TimeMeaningNative.csproj" Id="104b5f96-4619-4c23-8eb1-ff52d6dab64c" />
-  </Folder>
   <Folder Name="/csharp.test.static-success1/">
     <Project Path="src/csharp.test.static-success1/csharp.test.static.csproj" />
   </Folder>
@@ -20,7 +16,14 @@
     <Project Path="src/csharp.test.static-success2/csharp.test.static/csharp.test.static.csproj" />
     <Project Path="src/csharp.test.static-success2/TimeMeaningNative/TimeMeaningNative.csproj" />
   </Folder>
+  <Folder Name="/csharp.test.static-success3/">
+    <Project Path="src/csharp.test.static-success3/csharp.test.static/csharp.test.static.csproj" />
+    <Project Path="src/csharp.test.static-success3/TimeMeaningNative/TimeMeaningNative.csproj" />
+  </Folder>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
+    <File Path="publish.bat" />
+    <File Path="README.md" />
+    <File Path="SetPlatformMacro.ps1" />
   </Folder>
 </Solution>

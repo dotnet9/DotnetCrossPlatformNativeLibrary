@@ -30,7 +30,7 @@
 	<ItemGroup>
 		<None Update="Lib\x64\libTimeMeaning.so" Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			<Link>Lib\TimeMeaning.so</Link>
+			<Link>Lib\libTimeMeaning.so</Link>
 		</None>
 		<None Update="Lib\x64\TimeMeaning.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

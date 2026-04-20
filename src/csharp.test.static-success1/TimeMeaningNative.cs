@@ -4,9 +4,9 @@ namespace csharp.test.static_;
 
 internal static class TimeMeaningNative
 {
-#if WIN_X64 || WIN_X86
+#if PLATFORM_WIN_X64 || PLATFORM_WIN_X86
 const string DLL = "Lib/TimeMeaning.dll";
-#elif LINUX_X64 || LINUX_ARM64
+#elif PLATFORM_LINUX_X64 || PLATFORM_LINUX_ARM64
 const string DLL = "Lib/libTimeMeaning.so";
 #else
     const string DLL = "Lib/TimeMeaning.dll";

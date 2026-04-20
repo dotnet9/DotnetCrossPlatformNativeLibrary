@@ -1,19 +1,19 @@
 using CodeWF.Log.Core;
 using TimeMeaningNative;
 
-#if WIN_X64
+#if PLATFORM_WIN_X64
 var platform = "Windows X64";
-#elif WIN_X86
+#elif PLATFORM_WIN_X86
 var platform = "Windows X86";
-#elif LINUX_X64
+#elif PLATFORM_LINUX_X64
 var platform = "Linux X64";
-#elif LINUX_ARM64
+#elif PLATFORM_LINUX_ARM64
 var platform = "Linux ARM64";
 #else
 var platform = "Unknown";
 #endif
 
-Logger.Info($"=== C# 静态调用 (DllImport) 测试 [{platform}]，子工程宏条件编译失效，这是失败的 ===\n");
+Logger.Info($"=== C# 静态调用 (DllImport) 测试 [{platform}]，多工程，子工程未使用宏条件编译，这是成功的 ===\n");
 
 try
 {
