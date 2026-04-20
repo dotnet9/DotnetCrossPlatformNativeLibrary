@@ -32,40 +32,46 @@ DotnetCrossPlatformNativeLibrary/
 │   │   └── build_linux.sh        # Linux 编译脚本
 │   ├── csharp.test.dynamic-success/  # 方案1：动态加载（成功）
 │   ├── csharp.test.static-success1/ # 方案2：静态加载-单工程（成功）
-│   ├── csharp.test.static-fail/      # 方案3：静态加载-多工程（失败）
-│   └── csharp.test.static-success2/  # 方案4：静态加载-多工程（推荐）
+│   ├── csharp.test.static-success2/  # 方案3：静态加载-多工程（成功）
+│   └── csharp.test.static-success3/  # 方案4：静态加载-多工程（推荐）
+├── publish.bat                   # 跨平台批量发布脚本
+├── SetPlatformMacro.ps1          # 全局宏定义脚本（配合发布脚本使用）
 ├── Directory.Build.props         # 全局配置
 └── Cross.slnx                    # 解决方案文件
 ```
 
-## 🎯 两大方案
+## 🎯 四大方案
 
 ### 1. 动态加载
 
 使用 `NativeLibrary` API 运行时手动加载本地库，适用于需要灵活控制库路径的场景。
 
 - ✅ 完全灵活的库路径控制
-- ✅ 支持 VC-LTL + YY-Thunks（兼容 Windows 7）
 - ✅ 跨平台完美支持
 
 ### 2. 静态加载
 
 使用 `DllImport` 特性声明，我们做了 3 种情况测试：
 
-| 情况  | 实现方式          | 结果    | 推荐   |
-| ----- | ----------------- | ------- | ------ |
-| 情况1 | 单工程 + 条件编译 | ✅ 成功 | ⭐     |
-| 情况2 | 多工程 + 条件编译 | ❌ 失败 | ❌     |
-| 情况3 | 多工程 + 仅库名   | ✅ 成功 | ⭐⭐⭐ |
+| 情况  | 实现方式                    | 结果    | 推荐   |
+| ----- | --------------------------- | ------- | ------ |
+| 情况1 | 单工程 + 条件编译           | ✅ 成功 | ⭐⭐   |
+| 情况2 | 多工程 + 条件编译           | ✅ 成功 | ⭐⭐⭐ |
+| 情况3 | 多工程 + 仅库名（无扩展名） | ✅ 成功 | ⭐⭐⭐ |
+
+**情况2成功的关键**：通过 `publish.bat` 发布脚本，在发布前调用 `SetPlatformMacro.ps1` 修改 `Directory.Build.props` 中的全局条件编译宏，使子工程也能正确获取平台宏定义。
+
+**情况3成功的关键**：子工程中只使用库名（不加扩展名），如 `DllImport("Lib/TimeMeaning")`，Linux 下系统会自动查找 `TimeMeaning`、`TimeMeaning.so`，需要 Linux 库去掉 `lib` 前缀。
 
 ## 📖 核心经验
 
-1. **尽量使用 DllImport 常量库名（不加扩展名）**，这是最稳定可靠的方案
-2. **静态加载使用条件编译宏能处理库名不同的情况**，但仅适用于单工程
-3. **不要依赖条件编译宏处理多工程下的平台差异**，宏在类库和 NuGet 包中不继承
-4. **Linux 下注意去掉 lib 前缀**，通过 csproj 的 `<Link>` 机制重命名
-5. **需要支持 Windows 7 时**，安装 VC-LTL 和 YY-Thunks NuGet 包
-6. **可以将库文件放在 Lib 子目录**，不一定非要在根目录
+1. **尽量使用 DllImport 常量库名（不加扩展名）**，这是最稳定可靠的方案，重点是简单好理解。方案一动态加载也可行，只是使用上稍微麻烦一点
+2. **静态加载使用条件编译宏能处理库名不同的情况**，适用于单工程和多工程（多工程需要配合发布脚本全局设置宏）
+3. **多工程场景下宏不继承的问题可以通过发布脚本解决**：使用 `publish.bat` + `SetPlatformMacro.ps1` 在发布前修改全局宏
+4. **不要依赖类库编译时的 RuntimeIdentifier**，因为类库编译时可能没有 RuntimeIdentifier 上下文，导致条件编译宏不生效
+5. **Linux 下注意去掉 lib 前缀**，通过 csproj 的 `<Link>` 机制重命名
+6. **需要支持 Windows 7 时**，安装 VC-LTL 和 YY-Thunks NuGet 包
+7. **可以将库文件放在 Lib 子目录**，不一定非要在根目录
 
 ## 🔧 快速开始
 

@@ -11,6 +11,26 @@
 		<TargetPlatformMinVersion>6.1</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+		<DefineConstants>$(DefineConstants);PLATFORM_LINUX_X64</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
+		<DefineConstants>$(DefineConstants);PLATFORM_LINUX_ARM64</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<DefineConstants>$(DefineConstants);PLATFORM_WIN_X64</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x86'">
+		<DefineConstants>$(DefineConstants);PLATFORM_WIN_X86</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == ''">
+		<DefineConstants>$(DefineConstants);PLATFORM_EMPTY</DefineConstants>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="CodeWF.Log.Core" Version="11.3.14" />
 		<PackageReference Include="VC-LTL" Version="5.3.1" />
