@@ -13,7 +13,7 @@ var platform = "Linux ARM64";
 var platform = "Unknown";
 #endif
 
-Logger.Info($"=== C# 静态调用 (DllImport) 测试 [{platform}]，多工程，子工程未使用宏条件编译，这是成功的 ===\n");
+Logger.Info($"=== C# 静态调用C++库 (DllImport) 测试 [{platform}]，多工程，子工程未使用宏条件编译，需要库路径相同（只允许扩展名不同） ===\n");
 
 try
 {
