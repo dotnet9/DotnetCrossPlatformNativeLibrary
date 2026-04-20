@@ -72,6 +72,7 @@ DotnetCrossPlatformNativeLibrary/
 5. **Linux 下注意去掉 lib 前缀**，通过 csproj 的 `<Link>` 机制重命名
 6. **需要支持 Windows 7 时**，安装 VC-LTL 和 YY-Thunks NuGet 包
 7. **可以将库文件放在 Lib 子目录**，不一定非要在根目录
+8. **⚠️ 重要：Directory.Build.props 全局宏不支持 NuGet 分发**：如果将使用条件编译宏的类库打包为 NuGet，上游项目完全继承不到该宏，且 NuGet 包内部代码也会在打包时就固定编译分支。如需通过 NuGet 分发，推荐使用方案四（仅库名，不依赖条件编译宏）
 
 ## 🔧 快速开始
 
