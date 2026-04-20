@@ -10,7 +10,8 @@
 		<!-- Win7 版本号 -->
 		<TargetPlatformMinVersion>6.1</TargetPlatformMinVersion>
 	</PropertyGroup>
-
+	<!--除了.pubxml定义宏，还能在当前工程定义宏-->
+<!--
 	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
 		<DefineConstants>$(DefineConstants);PLATFORM_LINUX_X64</DefineConstants>
 	</PropertyGroup>
@@ -30,7 +31,7 @@
 	<PropertyGroup Condition="'$(RuntimeIdentifier)' == ''">
 		<DefineConstants>$(DefineConstants);PLATFORM_EMPTY</DefineConstants>
 	</PropertyGroup>
-
+-->
 	<ItemGroup>
 		<PackageReference Include="CodeWF.Log.Core" Version="11.3.14" />
 		<PackageReference Include="VC-LTL" Version="5.3.1" />
