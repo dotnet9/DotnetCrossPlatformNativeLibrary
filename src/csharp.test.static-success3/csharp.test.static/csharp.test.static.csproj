@@ -12,9 +12,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CodeWF.Log.Core" Version="11.3.14" />
-		<PackageReference Include="VC-LTL" Version="5.3.1" />
-		<PackageReference Include="YY-Thunks" Version="1.2.1-Beta.4" />
+		<PackageReference Include="CodeWF.Log.Core" />
+		<PackageReference Include="VC-LTL" />
+		<PackageReference Include="YY-Thunks" />
 	</ItemGroup>
 
 	<ItemGroup>

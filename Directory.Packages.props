@@ -1,0 +1,11 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageVersion Include="CodeWF.Log.Core" Version="11.3.14" />
+		<PackageVersion Include="VC-LTL" Version="5.3.1" />
+		<PackageVersion Include="YY-Thunks" Version="1.2.1-Beta.4" />
+	</ItemGroup>
+</Project>
