@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:u="https://irihi.tech/ursa"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:models="using:AvaloniaDynamicLibraryTest.Models"
+             xmlns:vm="using:AvaloniaDynamicLibraryTest.ViewModels"
+             x:Class="AvaloniaDynamicLibraryTest.Views.LibraryGenerationView"
+             x:DataType="vm:LibraryGenerationViewModel"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="460">
+  <Grid Margin="4"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="10">
+    <u:Form LabelPosition="Left"
+            LabelWidth="96">
+      <u:FormItem Label="接口定义">
+        <TextBox Text="{Binding InterfaceDefinition}"
+                 IsReadOnly="True"
+                 AcceptsReturn="True"
+                 MinHeight="88"
+                 FontFamily="Consolas"
+                 TextWrapping="NoWrap"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
+      </u:FormItem>
+
+      <u:FormItem Label="算法模板">
+        <Grid ColumnDefinitions="260,Auto,*"
+              ColumnSpacing="8">
+          <ComboBox ItemsSource="{Binding Algorithms}"
+                    SelectedItem="{Binding SelectedAlgorithm}"
+                    MinWidth="240">
+            <ComboBox.ItemTemplate>
+              <DataTemplate x:DataType="models:AlgorithmOption">
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+
+          <Button Grid.Column="1"
+                  Content="生成"
+                  Command="{Binding GenerateCommand}"
+                  MinWidth="88" />
+
+          <TextBlock Grid.Column="2"
+                     Text="{Binding OutputDirectory}"
+                     VerticalAlignment="Center"
+                     TextTrimming="CharacterEllipsis" />
+        </Grid>
+      </u:FormItem>
+    </u:Form>
+
+    <TextBlock Grid.Row="1"
+               Text="实现类源码"
+               FontWeight="SemiBold" />
+
+    <TextBox Grid.Row="2"
+             Text="{Binding SourceCode, Mode=TwoWay}"
+             AcceptsReturn="True"
+             FontFamily="Consolas"
+             FontSize="14"
+             TextWrapping="NoWrap"
+             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+             ScrollViewer.VerticalScrollBarVisibility="Auto" />
+  </Grid>
+</UserControl>

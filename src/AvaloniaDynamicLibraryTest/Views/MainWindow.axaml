@@ -1,0 +1,58 @@
+<u:UrsaWindow xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:u="https://irihi.tech/ursa"
+              xmlns:log="https://codewf.com"
+              xmlns:prism="http://prismlibrary.com/"
+              xmlns:views="using:AvaloniaDynamicLibraryTest.Views"
+              xmlns:vm="using:AvaloniaDynamicLibraryTest.ViewModels"
+              x:Class="AvaloniaDynamicLibraryTest.Views.MainWindow"
+              x:DataType="vm:MainWindowViewModel"
+              prism:ViewModelLocator.AutoWireViewModel="True"
+              mc:Ignorable="d"
+              d:DesignWidth="1200"
+              d:DesignHeight="760"
+              Width="1200"
+              Height="760"
+              MinWidth="980"
+              MinHeight="680"
+              Icon="/Assets/avalonia-logo.ico"
+              Title="Avalonia 动态库测试"
+              IsFullScreenButtonVisible="True">
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+
+  <u:UrsaWindow.TitleBarContent>
+    <TextBlock Text="Avalonia 动态库生成与调用测试"
+               FontSize="14"
+               FontWeight="SemiBold" />
+  </u:UrsaWindow.TitleBarContent>
+
+  <Grid Margin="16"
+        RowDefinitions="*,260"
+        RowSpacing="12">
+    <TabControl>
+      <TabItem Header="动态库生成">
+        <views:LibraryGenerationView />
+      </TabItem>
+      <TabItem Header="调用动态库">
+        <views:LibraryInvocationView />
+      </TabItem>
+    </TabControl>
+
+    <Border Grid.Row="1"
+            BorderThickness="1"
+            CornerRadius="4"
+            Padding="10">
+      <Grid RowDefinitions="Auto,*"
+            RowSpacing="8">
+        <TextBlock Text="日志"
+                   FontSize="14"
+                   FontWeight="SemiBold" />
+        <log:LogView Grid.Row="1" />
+      </Grid>
+    </Border>
+  </Grid>
+</u:UrsaWindow>

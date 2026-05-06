@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:u="https://irihi.tech/ursa"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:models="using:AvaloniaDynamicLibraryTest.Models"
+             xmlns:vm="using:AvaloniaDynamicLibraryTest.ViewModels"
+             x:Class="AvaloniaDynamicLibraryTest.Views.LibraryInvocationView"
+             x:DataType="vm:LibraryInvocationViewModel"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="460">
+  <Grid Margin="4"
+        RowDefinitions="Auto,*,Auto,128"
+        RowSpacing="10">
+    <Grid ColumnDefinitions="Auto,Auto,Auto,*"
+          ColumnSpacing="8">
+      <Button Content="刷新目录"
+              Command="{Binding RefreshDirectoryCommand}" />
+      <Button Grid.Column="1"
+              Content="删除选择"
+              Command="{Binding DeleteSelectedCommand}" />
+      <Button Grid.Column="2"
+              Content="调用"
+              Command="{Binding InvokeSelectedCommand}"
+              MinWidth="88" />
+      <TextBlock Grid.Column="3"
+                 Text="{Binding LibraryDirectory}"
+                 VerticalAlignment="Center"
+                 TextTrimming="CharacterEllipsis" />
+    </Grid>
+
+    <ListBox Grid.Row="1"
+             ItemsSource="{Binding Libraries}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="models:GeneratedLibraryItem">
+          <Grid ColumnDefinitions="Auto,*,140,90"
+                ColumnSpacing="10"
+                MinHeight="46">
+            <CheckBox IsChecked="{Binding IsSelected}"
+                      VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1"
+                        Spacing="2"
+                        VerticalAlignment="Center">
+              <TextBlock Text="{Binding FileName}"
+                         FontWeight="SemiBold"
+                         TextTrimming="CharacterEllipsis" />
+              <TextBlock Text="{Binding FullPath}"
+                         FontSize="12"
+                         Opacity="0.72"
+                         TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <TextBlock Grid.Column="2"
+                       Text="{Binding LastWriteTimeText}"
+                       VerticalAlignment="Center" />
+            <TextBlock Grid.Column="3"
+                       Text="{Binding SizeText}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center" />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <u:Form Grid.Row="2"
+            LabelPosition="Left"
+            LabelWidth="72">
+      <u:FormItem Label="整数 1">
+        <u:NumericIntUpDown Value="{Binding LeftValue, Mode=TwoWay}"
+                            Width="180" />
+      </u:FormItem>
+      <u:FormItem Label="整数 2">
+        <u:NumericIntUpDown Value="{Binding RightValue, Mode=TwoWay}"
+                            Width="180" />
+      </u:FormItem>
+    </u:Form>
+
+    <ListBox Grid.Row="3"
+             ItemsSource="{Binding InvocationResults}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="models:LibraryInvocationResult">
+          <TextBlock Text="{Binding DisplayText}"
+                     TextTrimming="CharacterEllipsis" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </Grid>
+</UserControl>

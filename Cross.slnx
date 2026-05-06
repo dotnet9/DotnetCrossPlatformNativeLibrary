@@ -6,6 +6,9 @@
     <File Path="src/cpp.native.dll/GetTimeMeaning.cpp" />
     <File Path="src/cpp.native.dll/GetTimeMeaning.h" />
   </Folder>
+  <Folder Name="/AvaloniaDynamicLibraryTest/">
+    <Project Path="src/AvaloniaDynamicLibraryTest/AvaloniaDynamicLibraryTest.csproj" />
+  </Folder>
   <Folder Name="/csharp.test.dynamic-success/">
     <Project Path="src/csharp.test.dynamic-success/csharp.test.dynamic.csproj" />
   </Folder>
@@ -23,6 +26,7 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
+    <File Path="publish-avalonia.bat" />
     <File Path="publish.bat" />
     <File Path="README.md" />
     <File Path="SetPlatformMacro.ps1" />
