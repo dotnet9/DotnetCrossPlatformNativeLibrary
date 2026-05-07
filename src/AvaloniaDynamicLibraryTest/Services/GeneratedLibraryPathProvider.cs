@@ -6,5 +6,5 @@ namespace AvaloniaDynamicLibraryTest.Services;
 public sealed class GeneratedLibraryPathProvider : IGeneratedLibraryPathProvider
 {
     public string LibraryDirectory { get; } =
-        Path.Combine(AppContext.BaseDirectory, "GeneratedScripts");
+        Path.Combine(AppContext.BaseDirectory, "GeneratedLibraries");
 }

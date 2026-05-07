@@ -32,7 +32,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
         InvokeSelectedCommand = ReactiveCommand.CreateFromTask(
             InvokeSelectedLibrariesAsync,
             this.WhenAnyValue(x => x.IsInvoking).Select(isInvoking => !isInvoking));
-        InvokeSelectedCommand.ThrownExceptions.Subscribe(ex => Logger.Error("执行 C# 文件时发生异常。", ex));
+        InvokeSelectedCommand.ThrownExceptions.Subscribe(ex => Logger.Error("执行动态库时发生异常。", ex));
 
         RefreshLibraries();
     }
@@ -72,13 +72,13 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
         Directory.CreateDirectory(_pathProvider.LibraryDirectory);
         Libraries.Clear();
 
-        foreach (var path in Directory.EnumerateFiles(_pathProvider.LibraryDirectory, "*.cs")
+        foreach (var path in Directory.EnumerateFiles(_pathProvider.LibraryDirectory, "*.dll")
                      .OrderByDescending(File.GetLastWriteTime))
         {
             Libraries.Add(new GeneratedLibraryItem(path));
         }
 
-        Logger.Info($"刷新 C# 文件目录：{_pathProvider.LibraryDirectory}，找到 {Libraries.Count} 个 C# 文件。");
+        Logger.Info($"刷新动态库目录：{_pathProvider.LibraryDirectory}，找到 {Libraries.Count} 个动态库。");
     }
 
     private void DeleteSelectedLibraries()
@@ -86,7 +86,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
         var selectedLibraries = Libraries.Where(x => x.IsSelected).ToArray();
         if (selectedLibraries.Length == 0)
         {
-            Logger.Warn("未选择要删除的 C# 文件。");
+            Logger.Warn("未选择要删除的动态库。");
             return;
         }
 
@@ -96,11 +96,11 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
             {
                 DeleteLibraryArtifacts(item.FullPath);
                 Libraries.Remove(item);
-                Logger.Info($"已删除 C# 文件：{item.FullPath}");
+                Logger.Info($"已删除动态库：{item.FullPath}");
             }
             catch (Exception ex)
             {
-                Logger.Error($"删除 C# 文件失败：{item.FullPath}", ex);
+                Logger.Error($"删除动态库失败：{item.FullPath}", ex);
             }
         }
     }
@@ -114,7 +114,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
 
         if (selectedPaths.Length == 0)
         {
-            Logger.Warn("未选择要执行的 C# 文件。");
+            Logger.Warn("未选择要执行的动态库。");
             return;
         }
 
@@ -128,7 +128,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
         try
         {
             InvocationResults.Clear();
-            Logger.Info($"开始执行 {selectedPaths.Length} 个 C# 文件，入参 left={left}, right={right}。");
+            Logger.Info($"开始执行 {selectedPaths.Length} 个动态库，入参 left={left}, right={right}。");
 
             var results = await _invoker.InvokeAsync(selectedPaths, left, right);
             foreach (var result in results)
@@ -144,7 +144,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
                 }
             }
 
-            Logger.Info("C# 文件执行完成。");
+            Logger.Info("动态库执行完成。");
         }
         finally
         {

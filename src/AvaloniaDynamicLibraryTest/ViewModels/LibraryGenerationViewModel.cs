@@ -30,7 +30,7 @@ public sealed class LibraryGenerationViewModel : ViewModelBase
         GenerateCommand = ReactiveCommand.CreateFromTask(
             GenerateAsync,
             this.WhenAnyValue(x => x.IsGenerating).Select(isGenerating => !isGenerating));
-        GenerateCommand.ThrownExceptions.Subscribe(ex => Logger.Error("生成 C# 文件时发生异常。", ex));
+        GenerateCommand.ThrownExceptions.Subscribe(ex => Logger.Error("生成动态库时发生异常。", ex));
 
         SelectedAlgorithm = Algorithms.FirstOrDefault();
     }
@@ -85,7 +85,7 @@ public sealed class LibraryGenerationViewModel : ViewModelBase
         IsGenerating = true;
         try
         {
-            Logger.Info("开始生成 C# 文件。");
+            Logger.Info("开始编译 C# 源码为动态库。");
             var result = await _compiler.CompileAsync(SourceCode);
             foreach (var diagnostic in result.Diagnostics)
             {
@@ -94,11 +94,11 @@ public sealed class LibraryGenerationViewModel : ViewModelBase
 
             if (!result.Succeeded)
             {
-                Logger.Error("C# 文件生成失败。");
+                Logger.Error("动态库编译失败。");
                 return;
             }
 
-            Logger.Info($"C# 文件生成成功：{result.OutputPath}");
+            Logger.Info($"动态库生成成功：{result.OutputPath}");
             if (!string.IsNullOrWhiteSpace(result.SourcePath) && result.SourcePath != result.OutputPath)
             {
                 Logger.Debug($"源码快照：{result.SourcePath}");

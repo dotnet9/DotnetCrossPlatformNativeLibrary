@@ -1,11 +1,106 @@
+using System;
+using System.ComponentModel;
 using Avalonia.Controls;
+using AvaloniaEdit.Document;
+using AvaloniaEdit.Highlighting;
+using AvaloniaDynamicLibraryTest.ViewModels;
 
 namespace AvaloniaDynamicLibraryTest.Views;
 
 public partial class LibraryGenerationView : UserControl
 {
+    private LibraryGenerationViewModel? _viewModel;
+    private bool _isSyncingEditorText;
+
     public LibraryGenerationView()
     {
         InitializeComponent();
+        ConfigureSourceEditor();
+        AttachViewModel(DataContext as LibraryGenerationViewModel);
+        Loaded += (_, _) => AttachViewModel(DataContext as LibraryGenerationViewModel);
+    }
+
+    protected override void OnDataContextChanged(EventArgs e)
+    {
+        base.OnDataContextChanged(e);
+        if (SourceEditor is null)
+        {
+            return;
+        }
+
+        AttachViewModel(DataContext as LibraryGenerationViewModel);
+    }
+
+    private void ConfigureSourceEditor()
+    {
+        SourceEditor.Document ??= new TextDocument();
+        SourceEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+        SourceEditor.Options.ConvertTabsToSpaces = true;
+        SourceEditor.Options.IndentationSize = 4;
+        SourceEditor.PointerPressed += (_, _) => SourceEditor.TextArea.Focus();
+        SourceEditor.TextChanged += (_, _) =>
+        {
+            if (_isSyncingEditorText || _viewModel is null)
+            {
+                return;
+            }
+
+            if (!string.Equals(_viewModel.SourceCode, SourceEditor.Text, StringComparison.Ordinal))
+            {
+                _viewModel.SourceCode = SourceEditor.Text;
+            }
+        };
+    }
+
+    private void AttachViewModel(LibraryGenerationViewModel? viewModel)
+    {
+        if (ReferenceEquals(_viewModel, viewModel))
+        {
+            return;
+        }
+
+        if (_viewModel is not null)
+        {
+            _viewModel.PropertyChanged -= OnViewModelPropertyChanged;
+        }
+
+        _viewModel = viewModel;
+
+        if (_viewModel is not null)
+        {
+            _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+            SyncEditorText(_viewModel.SourceCode);
+        }
+        else
+        {
+            SyncEditorText(string.Empty);
+        }
+    }
+
+    private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(LibraryGenerationViewModel.SourceCode) && _viewModel is not null)
+        {
+            SyncEditorText(_viewModel.SourceCode);
+        }
+    }
+
+    private void SyncEditorText(string text)
+    {
+        SourceEditor.Document ??= new TextDocument();
+        if (string.Equals(SourceEditor.Document.Text, text, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _isSyncingEditorText = true;
+        try
+        {
+            SourceEditor.Document.Text = text;
+        }
+        finally
+        {
+            _isSyncingEditorText = false;
+        }
     }
 }

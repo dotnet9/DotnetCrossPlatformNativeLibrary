@@ -6,6 +6,7 @@
              RequestedThemeVariant="Light">
   <Application.Styles>
     <semi:SemiTheme Locale="zh-CN" />
+    <semi:AvaloniaEditSemiTheme />
     <semi:UrsaSemiTheme Locale="zh-CN" />
   </Application.Styles>
 </Application>

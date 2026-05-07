@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using AvaloniaDynamicLibraryTest.RegionAdapters;
 using AvaloniaDynamicLibraryTest.Services;
 using AvaloniaDynamicLibraryTest.ViewModels;
@@ -17,6 +19,8 @@ namespace AvaloniaDynamicLibraryTest;
 
 public partial class App : PrismApplication
 {
+    private bool _isExiting;
+
     public override void Initialize()
     {
         ConfigureLogger();
@@ -39,8 +43,8 @@ public partial class App : PrismApplication
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterSingleton<IGeneratedLibraryPathProvider, GeneratedLibraryPathProvider>();
-        containerRegistry.RegisterSingleton<IDynamicLibraryCompiler, CSharpSourceFileGenerator>();
-        containerRegistry.RegisterSingleton<IDynamicLibraryInvoker, CSharpSourceFileInvoker>();
+        containerRegistry.RegisterSingleton<IDynamicLibraryCompiler, CSharpDynamicLibraryCompiler>();
+        containerRegistry.RegisterSingleton<IDynamicLibraryInvoker, CSharpDynamicLibraryInvoker>();
         containerRegistry.Register<LibraryGenerationViewModel>();
         containerRegistry.Register<LibraryInvocationViewModel>();
         containerRegistry.Register<MainWindowViewModel>();
@@ -53,10 +57,61 @@ public partial class App : PrismApplication
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.Exit += (_, _) => Logger.FlushAsync().GetAwaiter().GetResult();
+            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            desktop.Exit += (_, _) => FlushLogger();
+            StartExitWatcher(desktop);
         }
 
         Logger.Info("Avalonia 动态库测试程序已启动。");
+    }
+
+    private void StartExitWatcher(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        var timer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(1)
+        };
+
+        timer.Tick += (_, _) =>
+        {
+            if (desktop.MainWindow is null || desktop.MainWindow.IsVisible)
+            {
+                return;
+            }
+
+            if (desktop.Windows.Any(window => window.IsVisible))
+            {
+                return;
+            }
+
+            ExitProcess();
+        };
+
+        timer.Start();
+    }
+
+    private void ExitProcess()
+    {
+        if (_isExiting)
+        {
+            return;
+        }
+
+        _isExiting = true;
+        FlushLogger();
+        Environment.Exit(0);
+    }
+
+    private static void FlushLogger()
+    {
+        try
+        {
+            Logger.FlushAsync().Wait(TimeSpan.FromSeconds(1));
+        }
+        catch
+        {
+            // The process is already exiting; never let log flushing keep it alive.
+        }
     }
 
     private static void ConfigureLogger()

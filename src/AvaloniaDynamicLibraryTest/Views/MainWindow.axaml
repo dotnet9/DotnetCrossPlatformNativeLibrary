@@ -11,45 +11,69 @@
               x:DataType="vm:MainWindowViewModel"
               prism:ViewModelLocator.AutoWireViewModel="True"
               mc:Ignorable="d"
-              d:DesignWidth="1200"
-              d:DesignHeight="760"
-              Width="1200"
-              Height="760"
-              MinWidth="980"
-              MinHeight="680"
+              d:DesignWidth="1240"
+              d:DesignHeight="800"
+              Width="1240"
+              Height="800"
+              MinWidth="1040"
+              MinHeight="700"
+              Background="#EEF2F7"
               Icon="/Assets/avalonia-logo.ico"
-              Title="Avalonia 动态库测试"
+              Title="Avalonia 动态库工作台"
               IsFullScreenButtonVisible="True">
   <Design.DataContext>
     <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <u:UrsaWindow.TitleBarContent>
-    <TextBlock Text="Avalonia 动态库生成与调用测试"
-               FontSize="14"
-               FontWeight="SemiBold" />
-  </u:UrsaWindow.TitleBarContent>
+  <u:UrsaWindow.LeftContent>
+    <StackPanel Orientation="Horizontal"
+                Spacing="10"
+                VerticalAlignment="Center">
+      <TextBlock Text="Avalonia 动态库工作台"
+                 FontSize="13"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center" />
+      <TextBlock Text="源码编译 / 动态库调用"
+                 FontSize="12"
+                 Foreground="#64748B"
+                 VerticalAlignment="Center" />
+    </StackPanel>
+  </u:UrsaWindow.LeftContent>
 
-  <Grid Margin="16"
-        RowDefinitions="*,260"
-        RowSpacing="12">
-    <TabControl>
-      <TabItem Header="动态库生成">
-        <views:LibraryGenerationView />
-      </TabItem>
-      <TabItem Header="调用动态库">
-        <views:LibraryInvocationView />
-      </TabItem>
-    </TabControl>
-
-    <Border Grid.Row="1"
+  <Grid Margin="12,34,12,12"
+        RowDefinitions="*,6,130"
+        RowSpacing="8">
+    <Border
+            Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
             BorderThickness="1"
-            CornerRadius="4"
+            CornerRadius="6"
+            Padding="8">
+      <TabControl>
+        <TabItem Header="生成动态库">
+          <views:LibraryGenerationView />
+        </TabItem>
+        <TabItem Header="调用动态库">
+          <views:LibraryInvocationView />
+        </TabItem>
+      </TabControl>
+    </Border>
+
+    <GridSplitter Grid.Row="1"
+                  Height="6"
+                  HorizontalAlignment="Stretch"
+                  ResizeDirection="Rows"
+                  Background="#CBD5E1" />
+
+    <Border Grid.Row="2"
+            Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
+            BorderThickness="1"
+            CornerRadius="6"
             Padding="10">
       <Grid RowDefinitions="Auto,*"
-            RowSpacing="8">
-        <TextBlock Text="日志"
-                   FontSize="14"
+            RowSpacing="6">
+        <TextBlock Text="运行日志"
                    FontWeight="SemiBold" />
         <log:LogView Grid.Row="1" />
       </Grid>

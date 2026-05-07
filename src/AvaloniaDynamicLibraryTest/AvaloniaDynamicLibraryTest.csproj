@@ -26,6 +26,7 @@
     <PackageReference Include="Prism.DryIoc.Avalonia" />
     <PackageReference Include="ReactiveUI.Avalonia" />
     <PackageReference Include="Semi.Avalonia" />
+    <PackageReference Include="Semi.Avalonia.AvaloniaEdit" />
     <PackageReference Include="VC-LTL" />
     <PackageReference Include="YY-Thunks" />
   </ItemGroup>

@@ -1,5 +1,7 @@
 <linker>
 	<assembly fullname="AvaloniaDynamicLibraryTest" preserve="All" />
+	<assembly fullname="AvaloniaEdit" preserve="All" />
+	<assembly fullname="Semi.Avalonia.AvaloniaEdit" preserve="All" />
 	<assembly fullname="Ursa.PrismExtension" preserve="All" />
 	<assembly fullname="Prism" preserve="All" />
 	<assembly fullname="DryIoc" preserve="All" />
