@@ -35,6 +35,7 @@
     <File Path="publish_AvaloniaManagedLibraryTest.ps1" />
     <File Path="publish_AvaloniaManagedLibraryTest_all.bat" />
     <File Path="publish_AvaloniaManagedLibraryTest_linux-x64.bat" />
+    <File Path="publish_AvaloniaManagedLibraryTest_linux-x64.sh" />
     <File Path="publish_AvaloniaManagedLibraryTest_win-x64.bat" />
     <File Path="publish_dynmic_dllimport_demo_all.bat" />
     <File Path="README.md" />
