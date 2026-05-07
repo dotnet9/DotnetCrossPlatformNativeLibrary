@@ -1,7 +1,6 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
-using CodeWF.Log.Core;
 using Ursa.Controls;
 
 namespace AvaloniaDynamicLibraryTest.Views;
@@ -51,15 +50,6 @@ public partial class MainWindow : UrsaWindow
         }
 
         _isExiting = true;
-        try
-        {
-            Logger.FlushAsync().Wait(TimeSpan.FromSeconds(1));
-        }
-        catch
-        {
-            // The process is already exiting; never let log flushing keep it alive.
-        }
-
         Environment.Exit(0);
     }
 }

@@ -58,7 +58,7 @@ public partial class App : PrismApplication
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            desktop.Exit += (_, _) => FlushLogger();
+            desktop.Exit += (_, _) => _ = Logger.FlushAsync();
             StartExitWatcher(desktop);
         }
 
@@ -98,20 +98,7 @@ public partial class App : PrismApplication
         }
 
         _isExiting = true;
-        FlushLogger();
         Environment.Exit(0);
-    }
-
-    private static void FlushLogger()
-    {
-        try
-        {
-            Logger.FlushAsync().Wait(TimeSpan.FromSeconds(1));
-        }
-        catch
-        {
-            // The process is already exiting; never let log flushing keep it alive.
-        }
     }
 
     private static void ConfigureLogger()

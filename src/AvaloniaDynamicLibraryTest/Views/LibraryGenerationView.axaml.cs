@@ -15,7 +15,7 @@ public partial class LibraryGenerationView : UserControl
     public LibraryGenerationView()
     {
         InitializeComponent();
-        ConfigureSourceEditor();
+        ConfigureEditors();
         AttachViewModel(DataContext as LibraryGenerationViewModel);
         Loaded += (_, _) => AttachViewModel(DataContext as LibraryGenerationViewModel);
     }
@@ -23,7 +23,7 @@ public partial class LibraryGenerationView : UserControl
     protected override void OnDataContextChanged(EventArgs e)
     {
         base.OnDataContextChanged(e);
-        if (SourceEditor is null)
+        if (SourceEditor is null || InterfaceEditor is null)
         {
             return;
         }
@@ -31,10 +31,17 @@ public partial class LibraryGenerationView : UserControl
         AttachViewModel(DataContext as LibraryGenerationViewModel);
     }
 
-    private void ConfigureSourceEditor()
+    private void ConfigureEditors()
     {
+        var csharpHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+
+        InterfaceEditor.Document ??= new TextDocument();
+        InterfaceEditor.SyntaxHighlighting = csharpHighlighting;
+        InterfaceEditor.Options.ConvertTabsToSpaces = true;
+        InterfaceEditor.Options.IndentationSize = 4;
+
         SourceEditor.Document ??= new TextDocument();
-        SourceEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+        SourceEditor.SyntaxHighlighting = csharpHighlighting;
         SourceEditor.Options.ConvertTabsToSpaces = true;
         SourceEditor.Options.IndentationSize = 4;
         SourceEditor.PointerPressed += (_, _) => SourceEditor.TextArea.Focus();
@@ -69,10 +76,12 @@ public partial class LibraryGenerationView : UserControl
         if (_viewModel is not null)
         {
             _viewModel.PropertyChanged += OnViewModelPropertyChanged;
+            SyncInterfaceText(_viewModel.InterfaceDefinition);
             SyncEditorText(_viewModel.SourceCode);
         }
         else
         {
+            SyncInterfaceText(string.Empty);
             SyncEditorText(string.Empty);
         }
     }
@@ -83,6 +92,17 @@ public partial class LibraryGenerationView : UserControl
         {
             SyncEditorText(_viewModel.SourceCode);
         }
+    }
+
+    private void SyncInterfaceText(string text)
+    {
+        InterfaceEditor.Document ??= new TextDocument();
+        if (string.Equals(InterfaceEditor.Document.Text, text, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        InterfaceEditor.Document.Text = text;
     }
 
     private void SyncEditorText(string text)

@@ -57,17 +57,17 @@
                 RowSpacing="8">
             <TextBlock Text="接口契约"
                        FontWeight="SemiBold" />
-            <TextBox Grid.Row="1"
-                     Text="{Binding InterfaceDefinition}"
-                     IsReadOnly="True"
-                     AcceptsReturn="True"
-                     FontFamily="Consolas"
-                     FontSize="13"
-                     Background="#F8FAFC"
-                     BorderThickness="0"
-                     TextWrapping="NoWrap"
-                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            <edit:TextEditor x:Name="InterfaceEditor"
+                             Grid.Row="1"
+                             FontFamily="Consolas"
+                             FontSize="13"
+                             Background="#FFFFFF"
+                             Foreground="#111827"
+                             IsReadOnly="True"
+                             ShowLineNumbers="False"
+                             WordWrap="False"
+                             HorizontalScrollBarVisibility="Auto"
+                             VerticalScrollBarVisibility="Auto" />
           </Grid>
         </Border>
       </Grid>
@@ -92,8 +92,8 @@
                            Grid.Row="1"
                            FontFamily="Consolas"
                            FontSize="14"
-                           Background="#0F172A"
-                           Foreground="#E2E8F0"
+                           Background="#FFFFFF"
+                           Foreground="#111827"
                            Focusable="True"
                            IsReadOnly="False"
                            ShowLineNumbers="True"
