@@ -31,7 +31,8 @@
     <File Path="Directory.Packages.props" />
     <File Path="publish-AvaloniaDynamicLibraryTest-aot.bat" />
     <File Path="publish-AvaloniaDynamicLibraryTest.bat" />
-    <File Path="publish-AvaloniaEncryptedCSharpFileTest-aot.bat" />
+    <File Path="publish-AvaloniaEncryptedCSharpFileTest-linux-x64.bat" />
+    <File Path="publish-AvaloniaEncryptedCSharpFileTest-win-x64-aot.bat" />
     <File Path="publish-AvaloniaEncryptedCSharpFileTest.bat" />
     <File Path="publish.bat" />
     <File Path="README.md" />
