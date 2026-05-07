@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:u="https://irihi.tech/ursa"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:models="using:AvaloniaManagedLibraryTest.Models"
+             xmlns:vm="using:AvaloniaManagedLibraryTest.ViewModels"
+             x:Class="AvaloniaManagedLibraryTest.Views.LibraryInvocationView"
+             x:DataType="vm:LibraryInvocationViewModel"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignWidth="1100"
+             d:DesignHeight="460">
+  <Grid ColumnDefinitions="*,8,320">
+    <Border Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
+            BorderThickness="1"
+            CornerRadius="6"
+            Padding="12">
+      <Grid RowDefinitions="Auto,*"
+            RowSpacing="10">
+        <TextBlock Text="动态库列表"
+                   FontWeight="SemiBold" />
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Libraries}"
+                 BorderThickness="0">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="models:NativeLibraryItem">
+              <Grid ColumnDefinitions="Auto,*"
+                    ColumnSpacing="10"
+                    MinHeight="38"
+                    Margin="0,2">
+                <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                          VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1"
+                           Text="{Binding FileName}"
+                           FontWeight="SemiBold"
+                           TextTrimming="CharacterEllipsis"
+                           VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+
+    <GridSplitter Grid.Column="1"
+                  Width="8"
+                  VerticalAlignment="Stretch"
+                  ResizeDirection="Columns"
+                  Background="#CBD5E1" />
+
+    <Border Grid.Column="2"
+            Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
+            BorderThickness="1"
+            CornerRadius="6"
+            Padding="14">
+      <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+            RowSpacing="12">
+        <TextBlock Text="入参"
+                   FontWeight="SemiBold" />
+        <Grid Grid.Row="1"
+              ColumnDefinitions="72,*"
+              ColumnSpacing="10">
+          <TextBlock Text="左值"
+                     VerticalAlignment="Center"
+                     Foreground="#475569" />
+          <u:NumericIntUpDown Grid.Column="1"
+                              Value="{Binding LeftValue, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch" />
+        </Grid>
+        <Grid Grid.Row="2"
+              ColumnDefinitions="72,*"
+              ColumnSpacing="10">
+          <TextBlock Text="右值"
+                     VerticalAlignment="Center"
+                     Foreground="#475569" />
+          <u:NumericIntUpDown Grid.Column="1"
+                              Value="{Binding RightValue, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch" />
+        </Grid>
+        <Button Grid.Row="3"
+                Content="执行"
+                Command="{Binding InvokeSelectedCommand}"
+                HorizontalAlignment="Stretch"
+                MinHeight="34" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

@@ -1,0 +1,74 @@
+<u:UrsaWindow xmlns="https://github.com/avaloniaui"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:u="https://irihi.tech/ursa"
+              xmlns:log="https://codewf.com"
+              xmlns:prism="http://prismlibrary.com/"
+              xmlns:views="using:AvaloniaManagedLibraryTest.Views"
+              xmlns:vm="using:AvaloniaManagedLibraryTest.ViewModels"
+              x:Class="AvaloniaManagedLibraryTest.Views.MainWindow"
+              x:DataType="vm:MainWindowViewModel"
+              prism:ViewModelLocator.AutoWireViewModel="True"
+              mc:Ignorable="d"
+              d:DesignWidth="1240"
+              d:DesignHeight="800"
+              Width="1240"
+              Height="800"
+              MinWidth="1040"
+              MinHeight="700"
+              Background="#EEF2F7"
+              Icon="/Assets/avalonia-logo.ico"
+              Title="Avalonia 本机库测试"
+              IsFullScreenButtonVisible="True">
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+
+  <u:UrsaWindow.LeftContent>
+    <StackPanel Orientation="Horizontal"
+                Spacing="10"
+                VerticalAlignment="Center">
+      <TextBlock Text="本机库测试"
+                 FontSize="13"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center" />
+      <TextBlock Text="C# 实现 / NativeLibrary 调用"
+                 FontSize="12"
+                 Foreground="#64748B"
+                 VerticalAlignment="Center" />
+    </StackPanel>
+  </u:UrsaWindow.LeftContent>
+
+  <Grid Margin="12,34,12,12"
+        RowDefinitions="*,6,200"
+        RowSpacing="8">
+    <Border Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
+            BorderThickness="1"
+            CornerRadius="6"
+            Padding="8">
+      <views:LibraryInvocationView />
+    </Border>
+
+    <GridSplitter Grid.Row="1"
+                  Height="6"
+                  HorizontalAlignment="Stretch"
+                  ResizeDirection="Rows"
+                  Background="#CBD5E1" />
+
+    <Border Grid.Row="2"
+            Background="#FFFFFF"
+            BorderBrush="#D9E2EF"
+            BorderThickness="1"
+            CornerRadius="6"
+            Padding="10">
+      <Grid RowDefinitions="Auto,*"
+            RowSpacing="6">
+        <TextBlock Text="运行日志"
+                   FontWeight="SemiBold" />
+        <log:LogView Grid.Row="1" />
+      </Grid>
+    </Border>
+  </Grid>
+</u:UrsaWindow>
