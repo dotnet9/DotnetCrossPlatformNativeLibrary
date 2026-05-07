@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net8.0;net8.0-windows;net9.0;net9.0-windows;net10.0;net10.0-windows;net11.0;net11.0-windows</TargetFrameworks>
@@ -31,13 +31,16 @@
     <PackageReference Include="YY-Thunks" />
   </ItemGroup>
 
-  <Target Name="CopyDynamicCompilerReferences" AfterTargets="Publish" DependsOnTargets="ResolveReferences">
+  <Target Name="CopyRoslynCompilerReferences"
+          AfterTargets="Publish"
+          DependsOnTargets="ResolveReferences"
+          Condition="'$(PublishAot)' != 'true'">
     <ItemGroup>
-      <DynamicCompilerReference Include="@(ReferencePath)"
-                                Condition="'%(ReferencePath.NuGetPackageId)' == 'Microsoft.NETCore.App.Ref'" />
+      <RoslynCompilerReference Include="@(ReferencePath)"
+                               Condition="'%(ReferencePath.NuGetPackageId)' == 'Microsoft.NETCore.App.Ref'" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(DynamicCompilerReference)"
+    <Copy SourceFiles="@(RoslynCompilerReference)"
           DestinationFolder="$(PublishDir)ReferenceAssemblies\$(TargetFramework)"
           SkipUnchangedFiles="true" />
   </Target>

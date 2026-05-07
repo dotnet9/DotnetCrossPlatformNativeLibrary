@@ -1,0 +1,11 @@
+<linker>
+	<assembly fullname="AvaloniaEncryptedCSharpFileTest" preserve="All" />
+	<assembly fullname="AvaloniaEdit" preserve="All" />
+	<assembly fullname="Semi.Avalonia.AvaloniaEdit" preserve="All" />
+	<assembly fullname="Microsoft.CodeAnalysis" preserve="All" />
+	<assembly fullname="Microsoft.CodeAnalysis.CSharp" preserve="All" />
+	<assembly fullname="Prism" preserve="All" />
+	<assembly fullname="DryIoc" preserve="All" />
+	<assembly fullname="Prism.Avalonia" preserve="All" />
+	<assembly fullname="Prism.DryIoc.Avalonia" preserve="All" />
+</linker>

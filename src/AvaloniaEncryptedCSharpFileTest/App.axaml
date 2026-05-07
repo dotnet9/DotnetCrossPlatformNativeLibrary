@@ -1,0 +1,12 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:AvaloniaEncryptedCSharpFileTest"
+             xmlns:semi="https://irihi.tech/semi"
+             x:Class="AvaloniaEncryptedCSharpFileTest.App"
+             RequestedThemeVariant="Light">
+  <Application.Styles>
+    <semi:SemiTheme Locale="zh-CN" />
+    <semi:AvaloniaEditSemiTheme />
+    <semi:UrsaSemiTheme Locale="zh-CN" />
+  </Application.Styles>
+</Application>

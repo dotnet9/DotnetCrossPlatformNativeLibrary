@@ -14,6 +14,7 @@ namespace AvaloniaDynamicLibraryTest.ViewModels;
 
 public sealed class LibraryInvocationViewModel : ViewModelBase
 {
+    private static readonly string[] LibraryExtensions = [".dll", ".so", ".dylib"];
     private readonly IGeneratedLibraryPathProvider _pathProvider;
     private readonly IDynamicLibraryInvoker _invoker;
     private int? _leftValue = 10;
@@ -72,7 +73,8 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
         Directory.CreateDirectory(_pathProvider.LibraryDirectory);
         Libraries.Clear();
 
-        foreach (var path in Directory.EnumerateFiles(_pathProvider.LibraryDirectory, "*.dll")
+        foreach (var path in Directory.EnumerateFiles(_pathProvider.LibraryDirectory)
+                     .Where(IsDynamicLibrary)
                      .OrderByDescending(File.GetLastWriteTime))
         {
             Libraries.Add(new GeneratedLibraryItem(path));
@@ -161,7 +163,7 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
             return;
         }
 
-        foreach (var extension in new[] { ".dll", ".pdb", ".cs" })
+        foreach (var extension in new[] { ".dll", ".so", ".dylib", ".pdb", ".dbg", ".lib", ".exp", ".cs" })
         {
             var path = Path.Combine(directory, stem + extension);
             if (File.Exists(path))
@@ -169,5 +171,10 @@ public sealed class LibraryInvocationViewModel : ViewModelBase
                 File.Delete(path);
             }
         }
+    }
+
+    private static bool IsDynamicLibrary(string path)
+    {
+        return LibraryExtensions.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase);
     }
 }
