@@ -29,12 +29,14 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
-    <File Path="publish-AvaloniaManagedLibraryTest.bat" />
-    <File Path="publish-AvaloniaManagedLibraryTest.ps1" />
-    <File Path="publish-AvaloniaEncryptedCSharpFileTest-linux-x64.bat" />
-    <File Path="publish-AvaloniaEncryptedCSharpFileTest-win-x64-aot.bat" />
-    <File Path="publish-AvaloniaEncryptedCSharpFileTest.bat" />
-    <File Path="publish.bat" />
+    <File Path="publish_AvaloniaEncryptedCSharpFileTest_all.bat" />
+    <File Path="publish_AvaloniaEncryptedCSharpFileTest_linux-x64.bat" />
+    <File Path="publish_AvaloniaEncryptedCSharpFileTest_win-x64-aot.bat" />
+    <File Path="publish_AvaloniaManagedLibraryTest.ps1" />
+    <File Path="publish_AvaloniaManagedLibraryTest_all.bat" />
+    <File Path="publish_AvaloniaManagedLibraryTest_linux-x64.bat" />
+    <File Path="publish_AvaloniaManagedLibraryTest_win-x64.bat" />
+    <File Path="publish_dynmic_dllimport_demo_all.bat" />
     <File Path="README.md" />
     <File Path="SetPlatformMacro.ps1" />
   </Folder>

@@ -1,10 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "SCRIPT=%~dp0publish-AvaloniaManagedLibraryTest.ps1"
+set "SCRIPT=%~dp0publish_AvaloniaManagedLibraryTest.ps1"
 set "FAILED=0"
 
-call :Publish win-x64 net11.0-windows
+call :Publish linux-x64 net11.0
 if errorlevel 1 set "FAILED=1"
 
 if "!FAILED!"=="1" (
