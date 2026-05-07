@@ -1,35 +1,6 @@
 @echo off
-setlocal enabledelayedexpansion
 
-set "project_paths=src\AvaloniaDynamicLibraryTest"
-set "platforms=linux-x64 linux-arm64 win-x64 win-x86"
+dotnet publish "src\AvaloniaDynamicLibraryTest\AvaloniaDynamicLibraryTest.csproj" -c Release -f net10.0-windows -r win-x64 --self-contained true -o "publish\avalonia-singlefile\win-x64\AvaloniaDynamicLibraryTest" /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishAot=false /p:PublishReadyToRun=false /p:PublishTrimmed=false /p:DebugType=none /p:DebugSymbols=false
+dotnet publish "src\AvaloniaDynamicLibraryTest\AvaloniaDynamicLibraryTest.csproj" -c Release -f net10.0 -r linux-x64 --self-contained true -o "publish\avalonia-singlefile\linux-x64\AvaloniaDynamicLibraryTest" /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishAot=false /p:PublishReadyToRun=false /p:PublishTrimmed=false /p:DebugType=none /p:DebugSymbols=false
 
-for %%p in (%platforms%) do (
-    set "tfm="
-    set "pubxml="
-
-    if "%%p"=="linux-x64" set "tfm=net10.0" & set "pubxml=FolderProfile_linux-x64.pubxml"
-    if "%%p"=="linux-arm64" set "tfm=net10.0" & set "pubxml=FolderProfile_linux-arm64.pubxml"
-    if "%%p"=="win-x64" set "tfm=net10.0-windows" & set "pubxml=FolderProfile_win-x64.pubxml"
-    if "%%p"=="win-x86" set "tfm=net10.0-windows" & set "pubxml=FolderProfile_win-x86.pubxml"
-
-    echo ========================================
-    echo Building %%p...
-    echo ========================================
-
-    powershell -ExecutionPolicy Bypass -File "SetPlatformMacro.ps1" -Platform "%%p"
-
-    for %%d in (%project_paths%) do (
-        if exist "%%d\Properties\PublishProfiles\!pubxml!" (
-            echo Publishing %%d for %%p...
-            dotnet publish "%%d" -f !tfm! /p:PublishProfile="%%d\Properties\PublishProfiles\!pubxml!"
-        ) else (
-            echo Skipping %%d - PublishProfile not found: %%d\Properties\PublishProfiles\!pubxml!
-        )
-    )
-    echo.
-)
-
-echo ========================================
-echo All platforms published successfully!
-echo ========================================
+for /r "publish\avalonia-singlefile" %%f in (*.pdb *.dbg *.xml *.r2rmap) do del /q "%%f"
