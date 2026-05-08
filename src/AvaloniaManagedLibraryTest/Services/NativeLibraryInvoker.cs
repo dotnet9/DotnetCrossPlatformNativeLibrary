@@ -14,6 +14,7 @@ public sealed class NativeLibraryInvoker : IDynamicLibraryInvoker
     private const string ExportName = "Cal";
     private readonly Dictionary<string, CachedLibrary> _cachedLibraries = new(StringComparer.OrdinalIgnoreCase);
     private readonly object _syncRoot = new();
+    private static readonly bool CanUnloadNativeLibraries = OperatingSystem.IsWindows();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     private delegate int CalDelegate(int left, int right);
@@ -49,6 +50,12 @@ public sealed class NativeLibraryInvoker : IDynamicLibraryInvoker
     {
         lock (_syncRoot)
         {
+            if (!CanUnloadNativeLibraries)
+            {
+                Logger.Debug("当前平台不主动卸载本机库句柄，等待进程结束时由操作系统回收。");
+                return;
+            }
+
             foreach (var library in _cachedLibraries.Values)
             {
                 library.Dispose();
@@ -83,6 +90,21 @@ public sealed class NativeLibraryInvoker : IDynamicLibraryInvoker
                 var cachedLibrary = GetOrAddCachedLibrary(libraryPath);
                 var value = cachedLibrary.Cal(left, right);
                 return new LibraryInvocationResult(displayName, ExportName, value, true, "成功，已缓存库句柄和导出函数指针。");
+            }
+            catch (Exception ex)
+            {
+                return new LibraryInvocationResult(displayName, ExportName, null, false, ex.Message);
+            }
+        }
+
+        if (!CanUnloadNativeLibraries)
+        {
+            try
+            {
+                // Linux/macOS 上 Native AOT 共享库卸载阶段可能触发进程级退出，调用期间保持句柄存活。
+                var cachedLibrary = GetOrAddCachedLibrary(libraryPath);
+                var value = cachedLibrary.Cal(left, right);
+                return new LibraryInvocationResult(displayName, ExportName, value, true, "成功，当前平台已延迟释放库句柄。");
             }
             catch (Exception ex)
             {
