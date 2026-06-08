@@ -18,7 +18,7 @@
               MinWidth="1040"
               MinHeight="700"
               Background="#EEF2F7"
-              Icon="/Assets/avalonia-logo.ico"
+              Icon="/Assets/logo.ico"
               Title="Avalonia 本机库测试"
               IsFullScreenButtonVisible="True">
   <Design.DataContext>

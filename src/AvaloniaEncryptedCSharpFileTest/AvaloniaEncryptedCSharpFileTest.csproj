@@ -1,15 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net8.0;net8.0-windows;net9.0;net9.0-windows;net10.0;net10.0-windows;net11.0;net11.0-windows</TargetFrameworks>
+    <TargetFrameworks>net11.0;net11.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\logo.ico</ApplicationIcon>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="..\..\logo.ico" Link="Assets\logo.ico" />
+    <AvaloniaResource Include="..\..\logo.png" Link="Assets\logo.png" />
+    <AvaloniaResource Include="..\..\logo.svg" Link="Assets\logo.svg" />
   </ItemGroup>
 	<ItemGroup>
 		<TrimmerRootDescriptor Include="Roots.xml" />
@@ -26,7 +30,7 @@
     <PackageReference Include="Prism.DryIoc.Avalonia" />
     <PackageReference Include="ReactiveUI.Avalonia" />
     <PackageReference Include="Semi.Avalonia" />
-    <PackageReference Include="Semi.Avalonia.AvaloniaEdit" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" />
     <PackageReference Include="VC-LTL" />
     <PackageReference Include="YY-Thunks" />
   </ItemGroup>

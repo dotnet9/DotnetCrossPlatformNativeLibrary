@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="42" fill="#0B4A6F"/>
+  <path d="M52 80h152M52 128h152M52 176h152M80 52v152M128 52v152M176 52v152" stroke="#7DD3FC" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
+  <circle cx="200" cy="56" r="22" fill="#7DD3FC"/>
+  <text x="128" y="158" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="800" fill="#ffffff">DN</text>
+</svg>

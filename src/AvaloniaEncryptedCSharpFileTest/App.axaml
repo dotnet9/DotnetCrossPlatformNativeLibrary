@@ -6,7 +6,7 @@
              RequestedThemeVariant="Light">
   <Application.Styles>
     <semi:SemiTheme Locale="zh-CN" />
-    <semi:AvaloniaEditSemiTheme />
+    <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
     <semi:UrsaSemiTheme Locale="zh-CN" />
   </Application.Styles>
 </Application>

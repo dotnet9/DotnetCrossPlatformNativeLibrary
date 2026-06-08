@@ -18,7 +18,7 @@
               MinWidth="1040"
               MinHeight="700"
               Background="#EEF2F7"
-              Icon="/Assets/avalonia-logo.ico"
+              Icon="/Assets/logo.ico"
               Title="Avalonia 加密 C# 文件工作台"
               IsFullScreenButtonVisible="True">
   <Design.DataContext>
