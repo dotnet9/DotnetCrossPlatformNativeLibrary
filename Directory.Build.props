@@ -1,27 +1,5 @@
-﻿<Project>
-	<PropertyGroup>
-		<DefineConstants>$(DefineConstants);PLATFORM_WIN_X86</DefineConstants>
-	</PropertyGroup>
+<Project>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);PLATFORM_WIN_X86</DefineConstants>
+  </PropertyGroup>
 </Project>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
