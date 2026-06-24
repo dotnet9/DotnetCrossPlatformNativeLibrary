@@ -9,8 +9,8 @@
     <PackageVersion Include="Avalonia.Desktop" Version="12.0.5" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.0.5" />
     <PackageVersion Include="Avalonia.Markup.Xaml.Loader" Version="12.0.5" />
-    <PackageVersion Include="CodeWF.Log.Core" Version="12.0.4.2" />
-    <PackageVersion Include="CodeWF.LogViewer.Avalonia" Version="12.0.4.2" />
+    <PackageVersion Include="CodeWF.Log.Core" Version="12.0.5.2" />
+    <PackageVersion Include="CodeWF.LogViewer.Avalonia" Version="12.0.5.2" />
     <PackageVersion Include="Irihi.Ursa.Themes.Semi" Version="2.0.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
     <PackageVersion Include="Prism.DryIoc.Avalonia" Version="8.1.97.11073" />
@@ -19,7 +19,7 @@
     <PackageVersion Include="System.Drawing.Common" Version="10.0.9" />
     <PackageVersion Include="System.Security.Permissions" Version="10.0.9" />
     <PackageVersion Include="System.Windows.Extensions" Version="10.0.9" />
-    <PackageVersion Include="VC-LTL" Version="5.3.1" />
-    <PackageVersion Include="YY-Thunks" Version="1.2.2-Beta.2" />
+    <PackageVersion Include="VC-LTL" Version="5.3.1-beta3" />
+    <PackageVersion Include="YY-Thunks" Version="1.2.2-beta.2" />
   </ItemGroup>
 </Project>

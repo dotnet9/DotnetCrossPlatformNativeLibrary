@@ -28,3 +28,6 @@
 | `YY-Thunks` | Windows 兼容 | MIT | https://github.com/Chuyu-Team/YY-Thunks | 源码开放，通过 |
 
 传递依赖检查结论：Avalonia / SkiaSharp / ANGLE、Semi / Ursa、Prism.Avalonia、ReactiveUI 与 Roslyn 链均有公开源码。有效 restore 未发现 `Semi.Avalonia.AvaloniaEdit`、`Semi.Avalonia.Dock`、`Semi.Avalonia.ProDataGrid`、`AvaloniaUI.DiagnosticsSupport` 或 `System.Drawing.Common 4.7.0`。
+## Package Versioning Convention
+
+Keep NuGet package versions and Central Package Management settings in `Directory.Packages.props`, including shared version properties such as `AvaloniaVersion`. Keep `Directory.Build.props` focused on build, compiler, and NuGet package metadata. When referenced, `VC-LTL` and `YY-Thunks` should use their latest prerelease versions for OS platform compatibility.
